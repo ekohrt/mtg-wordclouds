@@ -16,17 +16,18 @@ import numpy as np
 from PIL import Image
 
 
+
 WHITE = 'W'
 RED = 'R'
 GREEN = 'G'
 BLUE = 'U'
 BLACK = 'B'
 
-white_mask = np.array(Image.open('mana_symbol_masks/mana_symbol_w.png'))
-red_mask   = np.array(Image.open('mana_symbol_masks/mana_symbol_r.png'))
-green_mask = np.array(Image.open('mana_symbol_masks/mana_symbol_g.png'))
-blue_mask  = np.array(Image.open('mana_symbol_masks/mana_symbol_u.png'))
-black_mask = np.array(Image.open('mana_symbol_masks/mana_symbol_b.png'))
+white_mask = np.array(Image.open('mana_symbol_masks/mana_symbol_w_lg.png'))
+red_mask   = np.array(Image.open('mana_symbol_masks/mana_symbol_r_lg.png'))
+green_mask = np.array(Image.open('mana_symbol_masks/mana_symbol_g_lg.png'))
+blue_mask  = np.array(Image.open('mana_symbol_masks/mana_symbol_u_lg.png'))
+black_mask = np.array(Image.open('mana_symbol_masks/mana_symbol_b_lg.png'))
 
 #Wordcloud color schemes for each mtg color 
 #List of all colormaps: https://matplotlib.org/stable/tutorials/colors/colormaps.html
