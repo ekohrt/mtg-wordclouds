@@ -76,25 +76,35 @@ def make_normal_word_cloud(color_char):
 """
 Creates a mana-symbol-shaped word cloud in the console for a given color
 """
-def make_shaped_word_cloud(color_char):
+def make_shaped_word_cloud(color_char, transparent=False):
     #get combined text from all cards of given color
     text = collect_all_text_for_color(color_char)
     
     #plot the wordcloud
-    bkg_color = 'black' #COLOR_SCHEMES[color_char]['bkg']
     color_scheme = COLOR_SCHEMES[color_char]['scheme']
     mask = COLOR_SCHEMES[color_char]['mask']
     
-    # Generate word cloud
-    wordcloud = WordCloud(width = 3000, height = 2000, random_state=1, 
-                          background_color=bkg_color, colormap=color_scheme, 
+    if transparent:
+        mode = "RGBA"
+        bkg_color = "rgba(255, 255, 255, 0)"
+        suffix = "_transparent"
+    else:
+        mode = "RGB"
+        bkg_color = 'black' #black background looks best
+        suffix = ""
+    
+    #make transparent background (only visible in file)
+    wordcloud = WordCloud(width = 4000, height = 4000, random_state=2, 
+                          colormap=color_scheme, 
                           collocations=False, stopwords = STOPWORDS|myStopWords,
-                          mask=mask, contour_color='black', contour_width=1).generate(text)
-    #display in console
+                          background_color=bkg_color, mode=mode,
+                          mask=mask).generate(text)
+
+    #save wordcloud to file (important for transparent background)
+    wordcloud.to_file("wordcloud_" + color_char + suffix + ".png")
+    
+    #display in console (background will not be transparent in console)
     plot_cloud(wordcloud)
-
-
-
 
 
 """
@@ -135,11 +145,11 @@ def plot_cloud(wordcloud):
     
 def main():
     # use GREEN, BLACK, BLUE, RED, or WHITE
-    make_shaped_word_cloud(WHITE)
-    # make_shaped_word_cloud(RED)
-    # make_shaped_word_cloud(GREEN)
-    # make_shaped_word_cloud(BLACK)
-    # make_shaped_word_cloud(BLUE)
+    make_shaped_word_cloud(WHITE, transparent=True)
+    # make_shaped_word_cloud(RED, transparent=True)
+    # make_shaped_word_cloud(GREEN, transparent=True)
+    # make_shaped_word_cloud(BLACK, transparent=True)
+    # make_shaped_word_cloud(BLUE, transparent=True)
     
     
 if __name__ == "__main__":
